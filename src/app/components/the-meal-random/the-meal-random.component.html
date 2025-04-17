@@ -1,0 +1,11 @@
+<!-- <p>the-meal-random works!</p> -->
+
+<div class="container-fluid min-vh-100">
+  <div class="fs-1 p-3">Busqueda Aleatoria</div>
+
+  @if (isVisisble) {
+    <app-loader />
+  }@else {
+    <app-card [meals]="meals" />
+  }
+</div>
