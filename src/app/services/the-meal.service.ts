@@ -20,7 +20,7 @@ export class TheMealService {
 
   getMealByLetter(letter: string): Observable<any> {
     if (!letter || letter.trim() === '' || letter.length > 1) {
-      return throwError(() => new Error('La búsqueda debe ser de una única letra y no debe estar vacía'));
+      return throwError(() => new Error('La búsqueda debe contener una sola letra'));
     }
     const sanitizedLetter = encodeURIComponent(letter.trim());
     return this._http.get<any>(`${this._API_URL}search.php?f=${sanitizedLetter}`);

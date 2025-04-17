@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { LoaderComponent } from "../loader/loader.component";
 import { TheMealService } from '../../services/the-meal.service';
 import { CardComponent } from "../card/card.component";
@@ -12,34 +12,49 @@ import { CardComponent } from "../card/card.component";
 export class TheMealSearchComponent {
   private mealService = inject(TheMealService);
 
+  @Input() searchType: 'name' | 'letter' = 'name';
+
   isVisisble: boolean = false;
   hasSearched: boolean= false;
   meals: any[] = [];
 
+  getMeals(searchValue: string) {
 
-  getMeals(letter: string) {
+    if (!searchValue || searchValue.trim() === '') {
+      alert('El campo de búsqueda no puede estar vacío.');
+      return;
+    }
+
     this.isVisisble = true;
+    this.hasSearched = true;
 
-    // Llamada al servicio
-    this.mealService.getMealByLetter(letter).subscribe({
-      next: (respuesta) => {
-        this.meals = respuesta.meals || [];
-        this.hasSearched = true;
-        this.isVisisble = false;
-      },
-      error: (error) => {
-        this.isVisisble = false;
-        this.hasSearched = false;
-
-        if (error.message.includes('Debe ser de una única letra y no estar vacía')) {
-            alert('Error de validación: \n' + error.message);
-        } else {
-            alert('Error al obtener los datos: \n' + error.message);
+    if (this.searchType === 'name') {
+      this.mealService.getMealByName(searchValue).subscribe({
+        next: (response) => {
+          this.meals = response.meals || [];
+          this.hasSearched = true;
+          this.isVisisble = false;
+        },
+        error: (error) => {
+          console.error(error);
+          alert(error.message);
+          this.isVisisble = false;
         }
-
-        console.error('Detalle del error: \n', error);
-      }
-    });
+      });
+    } else if (this.searchType === 'letter') {
+      this.mealService.getMealByLetter(searchValue).subscribe({
+        next: (response) => {
+          this.meals = response.meals || [];
+          this.hasSearched = true;
+          this.isVisisble = false;
+        },
+        error: (error) => {
+          console.error(error);
+          alert(error.message);
+          this.isVisisble = false;
+        }
+      });
+    }
   }
 
 }
