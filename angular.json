@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "the_meal-restaurant": {
+    "the_meal_recipes": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/the_meal-restaurant",
+            "outputPath": "dist/the_meal_recipes",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "the_meal-restaurant:build:production"
+              "buildTarget": "the_meal_recipes:build:production"
             },
             "development": {
-              "buildTarget": "the_meal-restaurant:build:development"
+              "buildTarget": "the_meal_recipes:build:development"
             }
           },
           "defaultConfiguration": "development"
