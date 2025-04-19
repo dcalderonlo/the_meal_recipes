@@ -17,9 +17,18 @@ export class TheMealRandomComponent implements OnInit {
 
   ngOnInit() {
     this.isVisisble = true;
-    this.mealService.getMealRandom().subscribe((respuesta) => {
-      this.meals = respuesta.meals || [];
-      this.isVisisble = false;
+
+    this.mealService.getMealRandom().subscribe({
+      next: (response) => {
+        this.meals = response.meals || [];
+        this.isVisisble = false;
+      },
+      error: (error) => {
+        console.error(error);
+        alert(error.message);
+        this.isVisisble = false;
+      }
     });
   }
+  
 }
