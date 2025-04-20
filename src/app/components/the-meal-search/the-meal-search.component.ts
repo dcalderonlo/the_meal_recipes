@@ -2,6 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { LoaderComponent } from "../loader/loader.component";
 import { TheMealService } from '../../services/the-meal.service';
 import { CardComponent } from "../card/card.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-the-meal-search',
@@ -11,6 +12,7 @@ import { CardComponent } from "../card/card.component";
 })
 export class TheMealSearchComponent {
   private mealService = inject(TheMealService);
+  private tostr = inject(ToastrService);
 
   @Input() searchType: 'name' | 'letter' = 'name';
 
@@ -21,7 +23,7 @@ export class TheMealSearchComponent {
   getMeals(searchValue: string) {
 
     if (!searchValue || searchValue.trim() === '') {
-      alert('El campo de búsqueda no puede estar vacío.');
+      this.tostr.error('El campo de búsqueda no puede estar vacío.');
       return;
     }
 
@@ -37,7 +39,7 @@ export class TheMealSearchComponent {
         },
         error: (error) => {
           console.error(error);
-          alert(error.message);
+          this.tostr.error(error.message);
           this.isVisisble = false;
         }
       });
@@ -50,7 +52,7 @@ export class TheMealSearchComponent {
         },
         error: (error) => {
           console.error(error);
-          alert(error.message);
+          this.tostr.error(error.message);
           this.isVisisble = false;
         }
       });
