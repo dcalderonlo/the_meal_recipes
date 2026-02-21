@@ -1,18 +1,20 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Meal } from '../../models/meal.interface';
 
 @Component({
   selector: 'app-card',
   imports: [],
   templateUrl: './card.component.html',
-  styleUrl: './card.component.css'
+  styleUrl: './card.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
 
   private sanitizer = inject(DomSanitizer);
-  @Input() meals: any[] = [];
+  @Input() public meals: Meal[] = [];
 
-  get validMeals(): any[] {
+  public get validMeals(): Meal[] {
     return (this.meals || []).filter(
       (meal) =>
         meal &&
@@ -23,11 +25,11 @@ export class CardComponent {
     );
   }
 
-  getIngredientKeys(meal: any): string[] {
+  public getIngredientKeys(meal: Meal): string[] {
     return Object.keys(meal).filter(key => key.startsWith('strIngredient') && meal[key]);
   }
 
-  safeYoutubeUrl(url: string): SafeResourceUrl {
+  public safeYoutubeUrl(url: string): SafeResourceUrl {
     if (url) {
       // Extrae el ID del video de la URL de YouTube
       const videoId = url.split('v=')[1];

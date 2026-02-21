@@ -1,26 +1,28 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { LoaderComponent } from "../loader/loader.component";
 import { TheMealService } from '../../services/the-meal.service';
 import { CardComponent } from "../card/card.component";
 import { ToastrService } from 'ngx-toastr';
+import { Meal } from '../../models/meal.interface';
 
 @Component({
   selector: 'app-the-meal-search',
   imports: [CardComponent, LoaderComponent],
   templateUrl: './the-meal-search.component.html',
-  styleUrl: './the-meal-search.component.css'
+  styleUrl: './the-meal-search.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TheMealSearchComponent {
   private mealService = inject(TheMealService);
   private tostr = inject(ToastrService);
 
-  @Input() searchType: 'name' | 'letter' = 'name';
+  @Input() public searchType: 'name' | 'letter' = 'name';
 
-  isVisisble: boolean = false;
-  hasSearched: boolean= false;
-  meals: any[] = [];
+  public isVisisble = false;
+  public hasSearched = false;
+  public meals: Meal[] = [];
 
-  getMeals(searchValue: string) {
+  public getMeals(searchValue: string): void {
 
     if (!searchValue || searchValue.trim() === '') {
       this.tostr.error('El campo de búsqueda no puede estar vacío.');

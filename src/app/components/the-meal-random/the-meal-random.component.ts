@@ -1,23 +1,25 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CardComponent } from "../card/card.component";
 import { TheMealService } from '../../services/the-meal.service';
 import { LoaderComponent } from "../loader/loader.component";
 import { ToastrService } from 'ngx-toastr';
+import { Meal } from '../../models/meal.interface';
 
 @Component({
   selector: 'app-the-meal-random',
   imports: [CardComponent, LoaderComponent],
   templateUrl: './the-meal-random.component.html',
-  styleUrl: './the-meal-random.component.css'
+  styleUrl: './the-meal-random.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TheMealRandomComponent implements OnInit {
   private mealService = inject(TheMealService);
   private toastr = inject(ToastrService);
 
-  isVisisble: boolean = false;
-  meals: any[] = [];
+  public isVisisble = false;
+  public meals: Meal[] = [];
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.isVisisble = true;
 
     this.mealService.getMealRandom().subscribe({
