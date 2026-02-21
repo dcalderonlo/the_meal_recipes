@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'the_meal_recipes' title`, () => {
+  it(`should have the 'The Meal - Recipes' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('the_meal_recipes');
+    expect(app.title).toEqual('The Meal - Recipes');
   });
 
-  it('should render title', () => {
+  it('should render router outlet container', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, the_meal_recipes');
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
 });

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 import { TheMealRandomComponent } from './the-meal-random.component';
+import { TheMealService } from '../../services/the-meal.service';
 
 describe('TheMealRandomComponent', () => {
   let component: TheMealRandomComponent;
@@ -8,7 +11,21 @@ describe('TheMealRandomComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TheMealRandomComponent]
+      imports: [TheMealRandomComponent],
+      providers: [
+        {
+          provide: TheMealService,
+          useValue: {
+            getMealRandom: () => of({ meals: [] })
+          }
+        },
+        {
+          provide: ToastrService,
+          useValue: {
+            error: jasmine.createSpy('error')
+          }
+        }
+      ]
     })
     .compileComponents();
 
