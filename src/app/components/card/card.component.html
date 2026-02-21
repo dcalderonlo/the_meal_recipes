@@ -29,7 +29,7 @@
                 <img [src]="meal.strMealThumb" class="img-fluid" alt="{{ meal.strMeal || 'Meal image' }}">
               </div>
               <div class="col-lg-6">
-                <h6 class="card-subtitle">Ingredientes</h6>
+                <h3 class="card-subtitle">Ingredientes</h3>
                 <ul class="container-fluid w-100">
                   @for (i of getIngredientKeys(meal); track i) {
                     @if (meal[i] && meal[i] !== '') {
@@ -41,13 +41,17 @@
                 </ul>
               </div>
               <div class="container-fluid">
-                <h6 class="card-subtitle my-2">Instrucciones</h6>
+                <h4 class="card-subtitle my-2">Instrucciones</h4>
                 <p class="card-text">{{ meal.strInstructions }}</p>
 
-                <h6 class="card-subtitle my-2">Preparación</h6>
-                <div class="ratio ratio-16x9">
-                  <iframe [src]="safeYoutubeUrl(meal.strYoutube)" class="embed-responsive-item" allowfullscreen></iframe>
-                </div>
+                <h4 class="card-subtitle my-2">Preparación</h4>
+                @if (safeYoutubeUrl(meal.strYoutube); as youtubeUrl) {
+                  <div class="ratio ratio-16x9">
+                    <iframe [src]="youtubeUrl" class="embed-responsive-item" allowfullscreen></iframe>
+                  </div>
+                } @else {
+                  <p class="text-muted mb-0">Video no disponible.</p>
+                }
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input } from '@angular/core';
 import { LoaderComponent } from "../loader/loader.component";
 import { TheMealService } from '../../services/the-meal.service';
 import { CardComponent } from "../card/card.component";
@@ -15,6 +15,7 @@ import { Meal } from '../../models/meal.interface';
 export class TheMealSearchComponent {
   private mealService = inject(TheMealService);
   private tostr = inject(ToastrService);
+  private cdr = inject(ChangeDetectorRef);
 
   @Input() public searchType: 'name' | 'letter' = 'name';
 
@@ -31,6 +32,7 @@ export class TheMealSearchComponent {
 
     this.isVisisble = true;
     this.hasSearched = true;
+    this.cdr.markForCheck();
 
     if (this.searchType === 'name') {
       this.mealService.getMealByName(searchValue).subscribe({
@@ -38,11 +40,13 @@ export class TheMealSearchComponent {
           this.meals = response.meals || [];
           this.hasSearched = true;
           this.isVisisble = false;
+          this.cdr.markForCheck();
         },
         error: (error) => {
           console.error(error);
           this.tostr.error(error.message);
           this.isVisisble = false;
+          this.cdr.markForCheck();
         }
       });
     } else if (this.searchType === 'letter') {
@@ -51,11 +55,13 @@ export class TheMealSearchComponent {
           this.meals = response.meals || [];
           this.hasSearched = true;
           this.isVisisble = false;
+          this.cdr.markForCheck();
         },
         error: (error) => {
           console.error(error);
           this.tostr.error(error.message);
           this.isVisisble = false;
+          this.cdr.markForCheck();
         }
       });
     }

@@ -29,16 +29,19 @@ export class CardComponent {
     return Object.keys(meal).filter(key => key.startsWith('strIngredient') && meal[key]);
   }
 
-  public safeYoutubeUrl(url: string): SafeResourceUrl {
-    if (url) {
-      // Extrae el ID del video de la URL de YouTube
-      const videoId = url.split('v=')[1];
-      if (videoId) {
-        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-        return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-      }
+  public safeYoutubeUrl(url: string | null | undefined): SafeResourceUrl | null {
+    if (!url) {
+      return null;
     }
-    return ''; // O alguna URL por defecto si no se encuentra o es inválida
+
+    // Extrae el ID del video de la URL de YouTube
+    const videoId = url.split('v=')[1];
+    if (!videoId) {
+      return null;
+    }
+
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
 
 }
