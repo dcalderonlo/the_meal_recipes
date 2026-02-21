@@ -12,6 +12,17 @@ export class CardComponent {
   private sanitizer = inject(DomSanitizer);
   @Input() meals: any[] = [];
 
+  get validMeals(): any[] {
+    return (this.meals || []).filter(
+      (meal) =>
+        meal &&
+        meal.idMeal &&
+        meal.strMeal &&
+        meal.strInstructions &&
+        meal.strMealThumb
+    );
+  }
+
   getIngredientKeys(meal: any): string[] {
     return Object.keys(meal).filter(key => key.startsWith('strIngredient') && meal[key]);
   }

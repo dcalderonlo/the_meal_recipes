@@ -2,16 +2,20 @@
 
 <div class="container rounded-3 bg-light p-3">
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-6 justify-content-center">
-    @for (meal of meals; track meal.idMeal) {
+    @for (meal of validMeals; track meal.idMeal) {
       <div class="card m-3" style="width: 18rem;" data-bs-toggle="modal" [attr.data-bs-target]="'#mealModal' + meal.idMeal">
-      <img [src]="meal.strMealThumb" class="card-img-top" alt="{{ meal.strMeal }}">
-      <div class="card-body">
-        <h5 class="card-title">{{ meal.strMeal }}</h5>
-        <h6 class="card-subtitle my-2 text-body-secondary">Instrucciones</h6>
-        <p class="card-text text-truncated">{{ meal.strInstructions }}</p>
+        <img [src]="meal.strMealThumb" class="card-img-top" alt="{{ meal.strMeal || 'Meal image' }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ meal.strMeal }}</h5>
+          <h6 class="card-subtitle my-2 text-body-secondary">Instrucciones</h6>
+          <p class="card-text text-truncated">{{ meal.strInstructions }}</p>
+        </div>
       </div>
-    </div>
+    }
+  </div>
 
+  <!-- Modales fuera del grid -->
+  @for (meal of validMeals; track meal.idMeal) {
     <div class="modal modal-lg fade" id="mealModal{{ meal.idMeal }}" tabindex="-1" aria-labelledby="mealModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -22,7 +26,7 @@
           <div class="modal-body container-fluid">
             <div class="row w-100">
               <div class="col-md4 col-lg-6">
-                <img [src]="meal.strMealThumb" class="img-fluid" alt="{{ meal.strMeal }}">
+                <img [src]="meal.strMealThumb" class="img-fluid" alt="{{ meal.strMeal || 'Meal image' }}">
               </div>
               <div class="col-lg-6">
                 <h6 class="card-subtitle">Ingredientes</h6>
@@ -50,6 +54,5 @@
         </div>
       </div>
     </div>
-}
-  </div>
+  }
 </div>
