@@ -1,4 +1,3 @@
-const path = require('node:path');
 const fs = require('node:fs');
 
 const chromeCandidates = [
@@ -12,7 +11,6 @@ const chromeCandidates = [
 ].filter(Boolean);
 
 const detectedChrome = chromeCandidates.find((candidate) => fs.existsSync(candidate));
-
 if (detectedChrome) {
   process.env.CHROME_BIN = detectedChrome;
 }
@@ -27,22 +25,13 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
     ],
-    jasmineHtmlReporter: {
-      suppressAll: true,
+    client: {
+      clearContext: false,
     },
-    coverageReporter: {
-      dir: path.join(__dirname, './coverage/the_meal_recipes'),
-      subdir: '.',
-      reporters: [{ type: 'html' }, { type: 'text-summary' }],
-    },
+    files: [],
+    exclude: [],
     reporters: ['progress', 'kjhtml'],
     browsers: ['ChromeHeadless'],
-    customLaunchers: {
-      ChromeHeadlessNoSandbox: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--headless', '--disable-gpu', '--disable-dev-shm-usage'],
-      },
-    },
     restartOnFileChange: true,
   });
 };
