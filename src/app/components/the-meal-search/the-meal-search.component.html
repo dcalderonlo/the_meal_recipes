@@ -6,7 +6,7 @@
   </div>
   <div class="text-center">
     <button (click)="getMeals(searchMeals.value); searchMeals.value=''" class="btn btn-dark">
-      Buscar
+      Find Meals
     </button>
   </div>
 </div>
@@ -18,6 +18,6 @@
   @if (meals.length > 0) {
     <app-card [meals]="meals" />
   } @else {
-    <div class="text-center fs-4 mt-4">{{hasSearched ? "No hay coincidencias" : "Aquí se muestran los resultados de la búsqueda"}}</div>
+    <div class="text-center fs-4 mt-4">{{hasSearched ? "No matches found" : "Here are the search results"}}</div>
   }
 }

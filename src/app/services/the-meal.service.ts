@@ -13,7 +13,7 @@ export class TheMealService {
 
   public getMealByName(name: string): Observable<MealResponse> {
     if (!name || name.trim() === '') {
-      return throwError(() => new Error('La búsqueda no puede estar vacía'));
+      return throwError(() => new Error('The search field cannot be empty'));
     }
     const sanitizedName = encodeURIComponent(name.trim());
     return this._http.get<MealResponse>(`${this.apiUrl}search.php?s=${sanitizedName}`);
@@ -21,7 +21,7 @@ export class TheMealService {
 
   public getMealByLetter(letter: string): Observable<MealResponse> {
     if (!letter || letter.trim() === '' || letter.length > 1) {
-      return throwError(() => new Error('La búsqueda debe contener una sola letra'));
+      return throwError(() => new Error('The search must contain a single letter'));
     }
     const sanitizedLetter = encodeURIComponent(letter.trim());
     return this._http.get<MealResponse>(`${this.apiUrl}search.php?f=${sanitizedLetter}`);

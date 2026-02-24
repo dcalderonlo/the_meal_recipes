@@ -7,7 +7,7 @@
         <img [src]="meal.strMealThumb" class="card-img-top" alt="{{ meal.strMeal || 'Meal image' }}">
         <div class="card-body">
           <h5 class="card-title">{{ meal.strMeal }}</h5>
-          <h6 class="card-subtitle my-2 text-body-secondary">Instrucciones</h6>
+          <h6 class="card-subtitle my-2 text-body-secondary">Instrucctions</h6>
           <p class="card-text text-truncated">{{ meal.strInstructions }}</p>
         </div>
       </div>
@@ -29,7 +29,7 @@
                 <img [src]="meal.strMealThumb" class="img-fluid" alt="{{ meal.strMeal || 'Meal image' }}">
               </div>
               <div class="col-lg-6">
-                <h3 class="card-subtitle">Ingredientes</h3>
+                <h3 class="card-subtitle">Ingredients</h3>
                 <ul class="container-fluid w-100">
                   @for (i of getIngredientKeys(meal); track i) {
                     @if (meal[i] && meal[i] !== '') {
@@ -41,16 +41,16 @@
                 </ul>
               </div>
               <div class="container-fluid">
-                <h4 class="card-subtitle my-2">Instrucciones</h4>
+                <h4 class="card-subtitle my-2">Instructions</h4>
                 <p class="card-text">{{ meal.strInstructions }}</p>
 
-                <h4 class="card-subtitle my-2">Preparación</h4>
+                <h4 class="card-subtitle my-2">Preparation</h4>
                 @if (safeYoutubeUrl(meal.strYoutube); as youtubeUrl) {
                   <div class="ratio ratio-16x9">
                     <iframe [src]="youtubeUrl" class="embed-responsive-item" allowfullscreen></iframe>
                   </div>
                 } @else {
-                  <p class="text-muted mb-0">Video no disponible.</p>
+                  <p class="text-muted mb-0">Video not available.</p>
                 }
               </div>
             </div>
